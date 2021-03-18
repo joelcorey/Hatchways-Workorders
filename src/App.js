@@ -5,20 +5,42 @@ import { useEffect, useState } from 'react';
 function App() {
 
 	const [workOrders, setWorkOrders] = useState({});
+	const [error, setError] = useState();
 
-	useEffect(async () => {
-		fetch('​https://api.hatchways.io/assessment/work_orders')
-			.then(response => {
-				setWorkOrders(response);
-			})
+	useEffect(() => {
+
+		let url = 'https://api.hatchways.io/assessment/work_orders';
+		let options = {
+			method: 'GET',
+			headers: {"Content-Type": "application/json"}
+		}
+
+		const fetchData = async () => {
+			try {
+				const response = await fetch(url, options);
+				const json = await response.json();
+				setWorkOrders(json);
+			} catch (error) {
+				setError(error);
+			}
+		};
+
+		fetchData();	
 	}, [] )
+
+
+	useEffect(() => {
+		console.log(workOrders)
+	}, [workOrders])
 
   return (
     <div className="App">
       <header className="App-header">
        this is header
       </header>
-			<div>{workOrders}</div>
+			<div>
+				
+			</div>
 			
     </div>
   );
