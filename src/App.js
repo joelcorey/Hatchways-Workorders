@@ -2,13 +2,32 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 
+import Workorder from './component/Workorder/Workorder';
+
 function App() {
 
-	const [workOrders, setWorkOrders] = useState({});
+	const [workOrders, setWorkOrders] = useState([]);
+	const [workers, setWorkers] = useState();
 	const [error, setError] = useState();
 
-	useEffect(() => {
+	async function handleWorkerLookup(id) {
+		let url = `​https://api.hatchways.io/assessment/workers/${id}`;
+		let options = {
+			method: 'GET',
+			headers: {"Content-Type": "application/json"}
+		}
 
+		try {
+			const response = await fetch(url, options);
+			const json = await response.json();
+			setWorkers(...workers, json.worker);
+		} catch (error) {
+			setError(error);
+		}
+	}
+
+	/* First time load, let's get the work order data! */
+	useEffect(() => {
 		let url = 'https://api.hatchways.io/assessment/work_orders';
 		let options = {
 			method: 'GET',
@@ -19,7 +38,7 @@ function App() {
 			try {
 				const response = await fetch(url, options);
 				const json = await response.json();
-				setWorkOrders(json);
+				setWorkOrders(json.orders);
 			} catch (error) {
 				setError(error);
 			}
@@ -28,20 +47,31 @@ function App() {
 		fetchData();	
 	}, [] )
 
-
-	useEffect(() => {
-		console.log(workOrders)
-	}, [workOrders])
-
   return (
     <div className="App">
-      <header className="App-header">
-       this is header
-      </header>
-			<div>
-				
+
+			<div className="flexcontainer">
+				{
+					workOrders.length > 0 ?
+						workOrders.map((order, index) => (
+							<div>
+								<Workorder
+									key={index}
+									deadline={order.deadline}
+									description={order.description}
+									id={order.id}
+									name={order.name}
+									workerId={order.workerId}
+									workers={workers}
+									handleWorkerLookup={handleWorkerLookup}
+								/>
+							</div>
+						))
+						:
+						<h1>Loading Data</h1>
+				}
 			</div>
-			
+
     </div>
   );
 }

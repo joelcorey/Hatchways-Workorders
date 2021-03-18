@@ -1,5 +1,31 @@
 .App {
   text-align: center;
+	/* width: '100vw'; */
+	/* margin: 0 auto; */
+	
+}
+
+.flexcontainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-flow: column wrap;
+	align-content: stretch;
+}
+.big-item {
+	/* This will be twice as */
+	/* big as the small item. */
+	flex: 2 0 0;
+	background-color: #CDCDCD;
+	border: 1px solid black;
+	margin: 10px;
+}
+.small-item {
+	flex: 1 0 0;
+	background-color: #CDCDCD;
+	border: 1px solid black;
+	margin: 10px;
+	max-width: 30vw;
 }
 
 .App-logo {
