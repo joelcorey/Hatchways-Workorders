@@ -12,6 +12,7 @@
 	flex-flow: column wrap;
 	align-content: stretch;
 }
+
 .big-item {
 	/* This will be twice as */
 	/* big as the small item. */
@@ -20,12 +21,19 @@
 	border: 1px solid black;
 	margin: 10px;
 }
+
 .small-item {
+	display: flex;
+	flex-direction: column;
 	flex: 1 0 0;
 	background-color: #CDCDCD;
 	border: 1px solid black;
 	margin: 10px;
 	max-width: 30vw;
+}
+
+.deadline-date-time {
+	align-self:flex-end;
 }
 
 .App-logo {

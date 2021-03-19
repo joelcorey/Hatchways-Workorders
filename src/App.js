@@ -10,22 +10,6 @@ function App() {
 	const [workers, setWorkers] = useState();
 	const [error, setError] = useState();
 
-	async function handleWorkerLookup(id) {
-		let url = `​https://api.hatchways.io/assessment/workers/${id}`;
-		let options = {
-			method: 'GET',
-			headers: {"Content-Type": "application/json"}
-		}
-
-		try {
-			const response = await fetch(url, options);
-			const json = await response.json();
-			setWorkers(...workers, json.worker);
-		} catch (error) {
-			setError(error);
-		}
-	}
-
 	/* First time load, let's get the work order data! */
 	useEffect(() => {
 		let url = 'https://api.hatchways.io/assessment/work_orders';
@@ -62,8 +46,6 @@ function App() {
 									id={order.id}
 									name={order.name}
 									workerId={order.workerId}
-									workers={workers}
-									handleWorkerLookup={handleWorkerLookup}
 								/>
 							</div>
 						))
