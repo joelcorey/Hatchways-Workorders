@@ -15,12 +15,11 @@ export default function Workerorder(props) {
 				setWorker(workers[i]);
 				return;
 			}
-
-			/* if worker not already in workers array go and look up that worker and 
-			it to the workers array and then return that worker */
-			let updateWorkersArray = fetchData(`​https://api.hatchways.io/assessment/workers/​${workerId}`)
-			
 		}
+		/* if worker not already in workers array go and look up that worker and 
+		it to the workers array and then return that worker */
+		let updateWorkersArray = fetchData(`​https://api.hatchways.io/assessment/workers/​${workerId}`)
+		
 	}
 
 	function convertUnixEpochTime(timeSinceUnixEpoch, mode = 'short'){
