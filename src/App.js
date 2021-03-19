@@ -7,7 +7,7 @@ import Workorder from './component/Workorder/Workorder';
 function App() {
 
 	const [workOrders, setWorkOrders] = useState([]);
-	const [workers, setWorkers] = useState();
+	const [workers, setWorkers] = useState([]);
 	const [error, setError] = useState();
 	const [response, setReponse] = useState();
 
@@ -33,19 +33,31 @@ function App() {
 
 	function handleChannel(json, channel) {
 		if (channel === 'workOrders') setWorkOrders(json.orders)
-		if (channel === 'worker') setWorkers(...workers, json.worker) 
+		if (channel === 'workers') {
+			console.log(json)
+			// setWorkers(...workers, json.worker) 
+		}
 	}
 
 	/* First time load, let's get the work order data! */
 	useEffect(() => {
+		setWorkers([
+			{
+				"id": 4,
+				"name": "Ashien Galier",
+				"email": "agalier4@@@@wordify.com",
+				"companyName": "Wordify",
+				"image": "http://dummyimage.com/250x250.jpg/ff4444/ffffff"
+			}
+		])
 		fetchData(
 			'https://api.hatchways.io/assessment/work_orders'
 		)
 	}, [] )
 
 	useEffect(() => {
-		console.log(workOrders)
-	}, [workOrders])
+		console.log(workers)
+	}, [workers])
 
   return (
     <div className="App">
