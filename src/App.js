@@ -11,14 +11,21 @@ function App() {
 	const [error, setError] = useState();
 	const [response, setReponse] = useState();
 
-	async function fetchData(url, options, channel = 'workOrders') {
+	async function fetchData(
+		url, 
+		options = {
+			method: 'GET',
+			headers: {"Content-Type": "application/json"}
+		}, 
+		channel = 'workOrders'
+	) {
 		try {
 			const response = await fetch(url, options)
 				.then(res => res.json())
 				.then(json => {
 					handleChannel(json, channel)
 				})
-				
+			return;
 		} catch (error) {
 			setError(error);
 		}
@@ -31,11 +38,7 @@ function App() {
 	/* First time load, let's get the work order data! */
 	useEffect(() => {
 		fetchData(
-			'https://api.hatchways.io/assessment/work_orders',
-			{
-				method: 'GET',
-				headers: {"Content-Type": "application/json"}
-			}
+			'https://api.hatchways.io/assessment/work_orders'
 		)
 	}, [] )
 
@@ -57,7 +60,9 @@ function App() {
 									description={order.description}
 									id={order.id}
 									name={order.name}
+									workers={workers}
 									workerId={order.workerId}
+									fetchData={fetchData}
 								/>
 							</div>
 						))
