@@ -33,6 +33,7 @@ function App() {
 
 	function handleChannel(json, channel) {
 		if (channel === 'workOrders') setWorkOrders(json.orders)
+		if (channel === 'worker') setWorkers(...workers, json.worker) 
 	}
 
 	/* First time load, let's get the work order data! */

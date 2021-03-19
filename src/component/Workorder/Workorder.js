@@ -11,11 +11,14 @@ export default function Workerorder(props) {
 		for (let i = 0; i < workers.length; i++) {
 
 			/* find if worker already in workers array and if so return that worker */
-			if (workers.id === worker.id) return workers[i]
+			if (workers.id === worker.id) {
+				setWorker(workers[i]);
+				return;
+			}
 
 			/* if worker not already in workers array go and look up that worker and 
 			it to the workers array and then return that worker */
-			
+			let updateWorkersArray = fetchData(`​https://api.hatchways.io/assessment/workers/​${workerId}`)
 			
 		}
 	}
