@@ -8,12 +8,9 @@ export default function Workerorder(props) {
 	const { id, description, workers, fetchData, workerId, deadline } = props;
 
 	function findWorkerById(workerId) {
-		console.log('looking for worker in workers array')
 		for (let i = 0; i < workers.length; i++) {
-			console.log(workerId)
 			/* find if worker already in workers array and if so return that worker */
 			if (workers[i].id === workerId) {
-				console.log('worker found in workers array')
 				setWorker(workers[i]);
 				return;
 			}
@@ -21,12 +18,10 @@ export default function Workerorder(props) {
 		/* if worker not already in workers array go and look up that worker and 
 		it to the workers array and then return that worker */
 		console.log('worker not found in workers array, performing API search')
-		let updateWorkersArray = fetchData(
+		fetchData(
 			`​https://api.hatchways.io/assessment/workers/​${workerId}`,
 			'workers'
 		)
-		return;
-
 	}
 
 	function displayWorkerInfo() {
@@ -48,9 +43,9 @@ export default function Workerorder(props) {
 		findWorkerById(workerId)
 	}, [])
 
-	useEffect(() => {
-		console.log(worker)
-	}, [worker])
+	// useEffect(() => {
+	// 	console.log(worker)
+	// }, [worker])
 
 	return (
 		<div className='small-item'>

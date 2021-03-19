@@ -13,13 +13,14 @@ function App() {
 
 	async function fetchData(
 		url, 
-		options = {
-			method: 'GET',
-			headers: {"Content-Type": "application/json"}
-		}, 
-		channel = 'workOrders'
+		channel
 	) {
 		try {
+			let options = {
+				method: 'GET',
+				headers: {"Content-Type": "application/json"}
+			}
+			console.log(url)
 			const response = await fetch(url, options)
 				.then(res => res.json())
 				.then(json => {
@@ -32,7 +33,11 @@ function App() {
 	};
 
 	function handleChannel(json, channel) {
-		if (channel === 'workOrders') setWorkOrders(json.orders)
+		console.log(json)
+		if (channel === 'workOrders') {
+			setWorkOrders(json.orders)
+			return;
+		}
 		if (channel === 'workers') {
 			console.log(json)
 			// setWorkers(...workers, json.worker) 
@@ -51,7 +56,8 @@ function App() {
 			}
 		])
 		fetchData(
-			'https://api.hatchways.io/assessment/work_orders'
+			'https://api.hatchways.io/assessment/work_orders',
+			'workOrders'
 		)
 	}, [] )
 
