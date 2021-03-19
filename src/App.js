@@ -9,12 +9,14 @@ function App() {
 	const [workOrders, setWorkOrders] = useState([]);
 	const [workers, setWorkers] = useState([]);
 	const [error, setError] = useState();
-	const [response, setReponse] = useState();
+	const [response, setResponse] = useState();
+	const [channel, setChannel] = useState();
 
 	async function fetchData(
 		url, 
 		channel
 	) {
+		setChannel(channel)
 		try {
 			let options = {
 				method: 'GET',
@@ -23,25 +25,14 @@ function App() {
 			console.log(url)
 			const response = await fetch(url, options)
 				.then(res => res.json())
-				.then(json => {
-					handleChannel(json, channel)
-				})
-			return;
+				.then(json => setResponse(json))
 		} catch (error) {
 			setError(error);
 		}
 	};
 
-	function handleChannel(json, channel) {
-		console.log(json)
-		if (channel === 'workOrders') {
-			setWorkOrders(json.orders)
-			return;
-		}
-		if (channel === 'workers') {
-			console.log(json)
-			// setWorkers(...workers, json.worker) 
-		}
+	function handleChannel(json) {
+
 	}
 
 	/* First time load, let's get the work order data! */
@@ -62,8 +53,15 @@ function App() {
 	}, [] )
 
 	useEffect(() => {
-		console.log(workers)
-	}, [workers])
+		if (channel === 'workOrders') {
+			setWorkOrders(response.orders)
+			return;
+		}
+		if (channel === 'workers') {
+			console.log(response)
+			// setWorkers(...workers, json.worker) 
+		}
+	}, [response])
 
   return (
     <div className="App">
