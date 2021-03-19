@@ -19,7 +19,7 @@ export default function Workerorder(props) {
 	}
 
 	useEffect(() => {
-		let url = `​https://api.hatchways.io/assessment/workers/${workerId}`;
+		let url = `​https://api.hatchways.io/assessment/workers/​${props.workerId}`;
 		let options = {
 			method: 'GET',
 			headers: {"Content-Type": "application/json"}
@@ -29,14 +29,14 @@ export default function Workerorder(props) {
 			try {
 				const response = await fetch(url, options);
 				const json = await response.json();
-				setWorker(json.worker);
+				setWorker(json);
 			} catch (error) {
 				setError(error);
 			}
 		};
 
-		fetchData();
-	}, [])
+		fetchData();	
+	}, [] )
 
 	useEffect(() => {
 		console.log(worker)
