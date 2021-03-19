@@ -43,10 +43,8 @@ export default function Workerorder(props) {
 	}, [worker])
 
 	return (
-		<div 
-			className='small-item'
-		>
-			<p>Work order {id}</p>
+		<div className='small-item'>
+			<div>Work order {id}</div>
 			<p className='left-text'>{description}</p>
 			{
 				worker !== undefined &&

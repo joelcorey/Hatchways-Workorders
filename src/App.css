@@ -32,6 +32,11 @@
 	max-width: 30vw;
 }
 
+.left-text {
+	margin: 5px 10px;
+	text-align: left;
+}
+
 .deadline-date-time {
 	align-self:flex-end;
 }
