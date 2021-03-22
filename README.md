@@ -1,6 +1,14 @@
 # Hatchways Workorders
 
-This is a coding challenge for Hatchways.
+This is a coding challenge for Hatchways. To see the requirements open the PDF included in this repo.
+
+## Time taken to complete
+
+10 hours
+
+## Challenges faced
+
+Time management and distraction were issues. I also struggled with this challenge even though I have built for more complicated projects. I ate some humble pie. And that's okay! I learned and adapted.
 
 ## Some things I usually struggle with and some links to resources and tutorials I used to solve
 
