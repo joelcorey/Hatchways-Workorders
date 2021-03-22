@@ -1,5 +1,8 @@
+### Some things I usually struggle with and some links to resources and tutorials I used to solve
+
 https://www.w3schools.com/jsref/jsref_sort.asp
 https://reactjs.org/docs/conditional-rendering.html
+https://www.w3schools.com/howto/howto_css_switch.asp
 
 # Getting Started with Create React App
 
