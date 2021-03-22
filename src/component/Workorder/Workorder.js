@@ -49,10 +49,15 @@ export default function Workerorder(props) {
 		<div className='small-item'>
 			<div>Work order {id}</div>
 			<p className='left-text'>{description}</p>
-			<div>
-				{/* {findWorkerById(workerId)} */}
+			<div className='worker-container'>
+				<div><img className='worker-image' src={worker.image} /></div>
+				<div className='worker-info-column left-text'>
+					<div>{worker.name}</div>
+					<div>{worker.companyName}</div>
+					<div>{worker.email}</div>
+				</div>
 			</div>
-			<div></div>
+			<div className='deadline-date-time'>{deadline}</div>
 		</div>
 	) 
 }

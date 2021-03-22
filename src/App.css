@@ -29,6 +29,7 @@
 	background-color: #CDCDCD;
 	border: 1px solid black;
 	margin: 10px;
+	padding: 10px;
 	max-width: 30vw;
 }
 
@@ -39,6 +40,20 @@
 
 .deadline-date-time {
 	align-self:flex-end;
+}
+
+.worker-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.worker-image {
+	width: 8vw;
+	height: auto;
+	margin: 1vw;
+	border-radius: 50%;
 }
 
 .App-logo {
