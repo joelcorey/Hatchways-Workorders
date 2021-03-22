@@ -5,7 +5,8 @@ export default function Workerorder(props) {
 	const [worker, setWorker] = useState();
 	const [error, setError] = useState();
 
-	const { id, description, workerId, deadline } = props;
+
+	const { id, description, workerId, deadline, workerFilter } = props;
 
 	async function fetchData(url) {
 		try {
@@ -21,6 +22,32 @@ export default function Workerorder(props) {
 			setError(error);
 		}
 	};
+
+	function displayJobInfo() {
+		if (workerFilter.length < 1) {
+			return (
+				<div className='small-item'>
+					<div>Work order {id}</div>
+					<p className='left-text'>{description}</p>
+					{displayWorkerInfo()}
+					<div className='deadline-date-time'>{convertUnixEpochTime(deadline, 'short')}</div>
+				</div>
+			)
+		}
+		
+		if (worker.name !== undefined && worker.name.includes(workerFilter) && workerFilter.length > 0) {
+			//console.log(worker.name)
+			return (
+				<div className='small-item'>
+					<div>Work order {id}</div>
+					<p className='left-text'>{description}</p>
+					{displayWorkerInfo()}
+					<div className='deadline-date-time'>{convertUnixEpochTime(deadline, 'short')}</div>
+				</div>
+			)
+		} 
+		
+	}
 	
 	function displayWorkerInfo() {
 		if (worker !== undefined) {
@@ -51,16 +78,13 @@ export default function Workerorder(props) {
 	}, [])
 
 	useEffect(() => {
-		console.log(worker)
-	}, [worker])
+		console.log(workerFilter)
+	}, [workerFilter])
 
 	return (
-		<div className='small-item'>
-			<div>Work order {id}</div>
-			<p className='left-text'>{description}</p>
-			{displayWorkerInfo()}
-			<div className='deadline-date-time'>{convertUnixEpochTime(deadline, 'short')}</div>
-		</div>
+		<>
+			{displayJobInfo()}
+		</>
 	) 
 }
 

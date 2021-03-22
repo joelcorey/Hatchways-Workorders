@@ -7,7 +7,8 @@ import Workorder from './component/Workorder/Workorder';
 function App() {
 
 	const [workOrders, setWorkOrders] = useState([]);
-	const [workers, setWorkers] = useState([]);
+	// const [workers, setWorkers] = useState([]);
+	const [workerFilter, setWorkerFilter] = useState('');
 	const [error, setError] = useState();
 	const [response, setResponse] = useState();
 	const [channel, setChannel] = useState();
@@ -32,6 +33,10 @@ function App() {
 		}
 	};
 
+	function handleChange(e) {
+		setWorkerFilter(e.target.value)
+	}
+
 	/* First time load, let's get the work order data! */
 	useEffect(() => {
 		fetchData(
@@ -44,30 +49,25 @@ function App() {
 		if (channel === 'work-orders') {
 			setWorkOrders(response.orders)
 		}
-		if (channel === 'worker') {
-			let newWorkers = workers
-			newWorkers.push(response.worker)
-			setWorkers(newWorkers) 
-		}
-	}, [response])
-
-	useEffect(() => {
-		console.log(workers)
-	}, [workers])
-
-	// useEffect(() => {
-	// 	console.log(workOrders)
-	// }, [workOrders])
-
-	useEffect(() => {
-		console.log(response)
+		// if (channel === 'worker') {
+		// 	let newWorkers = workers
+		// 	newWorkers.push(response.worker)
+		// 	setWorkers(newWorkers) 
+		// }
 	}, [response])
 
   return (
     <div className="App">
 
 			<div className="flexcontainer">
-				
+
+				<form>
+					<label>
+						<input type="text" name="name" onChange={handleChange} />
+					</label>
+					{/* <input type="submit" value="Submit"  /> */}
+				</form>
+
 				{
 					workOrders.length > 0 ?
 						workOrders.map((order, index) => (
@@ -78,9 +78,10 @@ function App() {
 									description={order.description}
 									id={order.id}
 									name={order.name}
-									workers={workers}
+									// workers={workers}
 									workerId={order.workerId}
-									fetchData={fetchData}
+									// fetchData={fetchData}
+									workerFilter={workerFilter}
 								/>
 							</div>
 						))
