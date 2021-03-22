@@ -40,14 +40,34 @@ function App() {
 
 	function handleSliderChange(e) {
 		if (workFilter === 'earliest-first') {
-			setWorkOrders('latest-first')
+			setWorkFilter('latest-first')
 		} else {
-			setWorkOrders('earliest-first')
+			setWorkFilter('earliest-first')
 		}
+	}
+
+	function sortWorkOrders() {
+		if (workFilter === 'earliest-first') {
+			// Sort the numbers in the array in descending order
+			setWorkOrders(workOrders.sort((a, b) => {return a.deadline - b.deadline}));
+		}
+
+		if (workFilter === 'latest-first') {
+			// Sort the numbers in the array in descending order
+			setWorkOrders(workOrders.sort((a, b) => {return b.deadline - b.deadline}));
+		}
+	}
+
+	function compareByDescending(a, b) {
+		if (a > b) return 1;
+		if (b > a) return -1;
+		return 0;
 	}
 
 	/* First time load, let's get the work order data! */
 	useEffect(() => {
+		sortWorkOrders()
+
 		fetchData(
 			'https://api.hatchways.io/assessment/work_orders',
 			'work-orders'
@@ -66,17 +86,9 @@ function App() {
 	}, [response])
 
 	useEffect(() => {
-		if (workFilter === 'earliest-first') {
-			// Sort the numbers in the array in descending order
-			workOrders.sort((a, b) => {return a-b});
-		}
-
-		if (workFilter === 'latest-first') {
-			// Sort the numbers in the array in descending order
-			workOrders.sort((a, b) => {return b-b});
-		}
+		sortWorkOrders()
 		
-	}, [workOrders])
+	}, [workOrders, workFilter])
 
   return (
     <div className="App">
