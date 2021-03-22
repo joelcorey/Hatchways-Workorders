@@ -1,3 +1,6 @@
+https://www.w3schools.com/jsref/jsref_sort.asp
+https://reactjs.org/docs/conditional-rendering.html
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

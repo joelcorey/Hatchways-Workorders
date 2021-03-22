@@ -34,7 +34,6 @@ export default function Workerorder(props) {
 				</div>
 			)
 		}
-		
 		if (worker.name !== undefined && worker.name.includes(workerFilter) && workerFilter.length > 0) {
 			//console.log(worker.name)
 			return (
@@ -46,7 +45,6 @@ export default function Workerorder(props) {
 				</div>
 			)
 		} 
-		
 	}
 	
 	function displayWorkerInfo() {

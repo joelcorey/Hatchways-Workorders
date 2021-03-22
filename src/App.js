@@ -12,6 +12,7 @@ function App() {
 	const [error, setError] = useState();
 	const [response, setResponse] = useState();
 	const [channel, setChannel] = useState();
+	const [workFilter, setWorkFilter] = useState('earliest-first')
 
 	async function fetchData(url, channel) {
 		try {
@@ -37,6 +38,14 @@ function App() {
 		setWorkerFilter(e.target.value)
 	}
 
+	function handleSliderChange(e) {
+		if (workFilter === 'earliest-first') {
+			setWorkOrders('latest-first')
+		} else {
+			setWorkOrders('earliest-first')
+		}
+	}
+
 	/* First time load, let's get the work order data! */
 	useEffect(() => {
 		fetchData(
@@ -56,6 +65,19 @@ function App() {
 		// }
 	}, [response])
 
+	useEffect(() => {
+		if (workFilter === 'earliest-first') {
+			// Sort the numbers in the array in descending order
+			workOrders.sort((a, b) => {return a-b});
+		}
+
+		if (workFilter === 'latest-first') {
+			// Sort the numbers in the array in descending order
+			workOrders.sort((a, b) => {return b-b});
+		}
+		
+	}, [workOrders])
+
   return (
     <div className="App">
 
@@ -67,6 +89,19 @@ function App() {
 					</label>
 					{/* <input type="submit" value="Submit"  /> */}
 				</form>
+
+				<div className='slider-container'>
+					<div className='slider-item'>Earliest first</div>
+					<div className='slider-item'>
+					<label class="switch">
+						<input type="checkbox" 
+							onChange={handleSliderChange}
+						/>
+						<span class="slider round"></span>
+					</label>
+					</div>
+					<div className='slider-item'>Latest first</div>
+				</div>
 
 				{
 					workOrders.length > 0 ?
