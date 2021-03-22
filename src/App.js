@@ -12,55 +12,55 @@ function App() {
 	const [response, setResponse] = useState();
 	const [channel, setChannel] = useState();
 
-	async function fetchData(
-		url, 
-		channel
-	) {
-		setChannel(channel)
+	async function fetchData(url, channel) {
 		try {
+			setChannel(channel)
+
+			//if (channel === 'worker') {
+				console.log(url)
+			//}
 			let options = {
 				method: 'GET',
 				headers: {"Content-Type": "application/json"}
 			}
-			console.log(url)
-			const response = await fetch(url, options)
-				.then(res => res.json())
-				.then(json => setResponse(json))
+			await fetch(url, options)
+				.then(response => response.json())
+        .then(data => setResponse(data));
+				
 		} catch (error) {
 			setError(error);
 		}
 	};
 
-	function handleChannel(json) {
-
-	}
-
 	/* First time load, let's get the work order data! */
 	useEffect(() => {
-		setWorkers([
-			{
-				"id": 4,
-				"name": "Ashien Galier",
-				"email": "agalier4@@@@wordify.com",
-				"companyName": "Wordify",
-				"image": "http://dummyimage.com/250x250.jpg/ff4444/ffffff"
-			}
-		])
 		fetchData(
 			'https://api.hatchways.io/assessment/work_orders',
-			'workOrders'
+			'work-orders'
 		)
 	}, [] )
 
 	useEffect(() => {
-		if (channel === 'workOrders') {
+		if (channel === 'work-orders') {
 			setWorkOrders(response.orders)
-			return;
 		}
-		if (channel === 'workers') {
-			console.log(response)
-			// setWorkers(...workers, json.worker) 
+		if (channel === 'worker') {
+			let newWorkers = workers
+			newWorkers.push(response.worker)
+			setWorkers(newWorkers) 
 		}
+	}, [response])
+
+	useEffect(() => {
+		console.log(workers)
+	}, [workers])
+
+	// useEffect(() => {
+	// 	console.log(workOrders)
+	// }, [workOrders])
+
+	useEffect(() => {
+		console.log(response)
 	}, [response])
 
   return (

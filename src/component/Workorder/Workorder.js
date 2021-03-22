@@ -5,29 +5,27 @@ export default function Workerorder(props) {
 	const [worker, setWorker] = useState();
 	const [error, setError] = useState();
 
-	const { id, description, workers, fetchData, workerId, deadline } = props;
+	const { id, description, workerId, deadline } = props;
 
-	function findWorkerById(workerId) {
-		for (let i = 0; i < workers.length; i++) {
-			/* find if worker already in workers array and if so return that worker */
-			if (workers[i].id === workerId) {
-				setWorker(workers[i]);
-				return;
+	async function fetchData(url) {
+		try {
+			let options = {
+				method: 'GET',
+				headers: {"Content-Type": "application/json"}
 			}
+			await fetch(url, options)
+				.then(response => response.json())
+        .then(data => setWorker(data.worker));
+				
+		} catch (error) {
+			setError(error);
 		}
-		/* if worker not already in workers array go and look up that worker and 
-		it to the workers array and then return that worker */
-		console.log('worker not found in workers array, performing API search')
-		fetchData(
-			`​https://api.hatchways.io/assessment/workers/​${workerId}`,
-			'workers'
-		)
-	}
-
+	};
+	
 	function displayWorkerInfo() {
 		if (worker !== undefined) {
 			return (
-				<div>{worker.name}</div>
+				<div>{worker.email}</div>
 			)
 		}
 	}
@@ -40,21 +38,21 @@ export default function Workerorder(props) {
 	}
 
 	useEffect(() => {
-		findWorkerById(workerId)
+		fetchData(`https://api.hatchways.io/assessment/workers/${workerId}`)
 	}, [])
 
-	// useEffect(() => {
-	// 	console.log(worker)
-	// }, [worker])
+	useEffect(() => {
+		console.log(worker)
+	}, [worker])
 
 	return (
 		<div className='small-item'>
 			<div>Work order {id}</div>
 			<p className='left-text'>{description}</p>
 			<div>
-				{displayWorkerInfo()}
+				{/* {findWorkerById(workerId)} */}
 			</div>
-			<div className="deadline-date-time">{convertUnixEpochTime(deadline, 'short')}</div>
+			<div></div>
 		</div>
 	) 
 }
