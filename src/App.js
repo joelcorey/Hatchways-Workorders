@@ -49,19 +49,13 @@ function App() {
 	function sortWorkOrders() {
 		if (workFilter === 'earliest-first') {
 			// Sort the numbers in the array in descending order
-			setWorkOrders(workOrders.sort((a, b) => {return a.deadline - b.deadline}));
+			setWorkOrders(workOrders.sort((a, b) => {return b.deadline - a.deadline}));
 		}
 
 		if (workFilter === 'latest-first') {
 			// Sort the numbers in the array in descending order
-			setWorkOrders(workOrders.sort((a, b) => {return b.deadline - b.deadline}));
+			setWorkOrders(workOrders.sort((a, b) => {return a.deadline - b.deadline}));
 		}
-	}
-
-	function compareByDescending(a, b) {
-		if (a > b) return 1;
-		if (b > a) return -1;
-		return 0;
 	}
 
 	/* First time load, let's get the work order data! */
